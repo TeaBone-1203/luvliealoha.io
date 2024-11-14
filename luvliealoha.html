@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Have Some Fun!</title><link rel="stylesheet" href="luvliealoha.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Let's Have Some Fun! 💖</h1>
+        <div id="quiz" class="quiz">
+            <div class="question active" data-correct="A">
+                <p>What's your favorite way to spend a lazy Sunday?</p>
+                <button>A. Watching Netflix</button>
+                <button>B. Reading a book</button>
+                <button>C. Going for a walk</button>
+                <button>D. Sleeping in</button>
+            </div>
+            <div class="question" data-correct="D">
+                <p>If we could go anywhere right now, where would you want to go?</p>
+                <button>A. A beach paradise</button>
+                <button>B. A cozy cabin in the mountains</button>
+                <button>C. A city filled with history</button>
+                <button>D. Right where we are, as long as we’re together</button>
+            </div>
+            <div class="question" data-correct="C">
+                <p>Which of these snacks would you choose for a movie night?</p>
+                <button>A. Popcorn with extra butter</button>
+                <button>B. Pizza and chips</button>
+                <button>C. Ice cream sundaes</button>
+                <button>D. Fruit and chocolate</button>
+            </div>
+            <div class="question" data-correct="A">
+                <p>What’s the best movie genre for a cozy night in?</p>
+                <button>A. Romantic Comedy</button>
+                <button>B. Thriller / Mystery</button>
+                <button>C. Action-packed adventure</button>
+                <button>D. Animated (cartoons!)</button>
+            </div>
+            <div class="question" data-correct="D">
+                <p>Do you believe in love at first sight?</p>
+                <button>A. Yes, I totally do!</button>
+                <button>B. Maybe, I’m open to it.</button>
+                <button>C. Not really.</button>
+                <button>D. Only if it’s with the right person 😉</button>
+            </div>
+            <div class="question final" data-correct="A">
+                <p>Do you want to watch a movie?</p>
+                <button>A. Yes, let’s do it! 🍿</button>
+                <button>B. Not yet, but let’s plan for later!</button>
+            </div>
+            <div class="question final">
+                <h1>screen shot this and send it to your partner🍿</h1>
+            </div>
+            <div class="message"></div>
+        </div>
+    </div> 
+    
+    <script> document.querySelectorAll('.question button').forEach(button => {
+        button.addEventListener('click', function() {
+            const question = this.closest('.question');
+            const correctAnswer = question.getAttribute('data-correct');
+            const userAnswer = this.textContent[0];
+    
+            if (userAnswer === correctAnswer) {
+                question.classList.remove('active');
+                if (question.nextElementSibling) {
+                    question.nextElementSibling.classList.add('active');
+                } else {
+                    triggerFinalMessage();
+                }
+            } else {
+                showMessage('Oops, that’s not the one! Try again!', question);
+                setTimeout(() => {
+                    showCorrectAnswer(correctAnswer, question);
+                }, 2000);
+            }
+        });
+    });
+    
+    function showMessage(msg, question) {
+        const messageDiv = document.querySelector('.message');
+        messageDiv.textContent = msg;
+        messageDiv.style.visibility = 'visible';
+        setTimeout(() => {
+            messageDiv.style.visibility = 'hidden';
+        }, 2000);
+    }
+    
+    function showCorrectAnswer(correct, question) {
+        const buttons = question.querySelectorAll('button');
+        buttons.forEach(button => {
+            if (button.textContent[0] === correct) {
+                button.style.backgroundColor = '#66cc66';
+                button.style.transform = 'scale(1.05)';
+            } else {
+                button.style.animation = 'shake 0.5s'; 
+            }
+        });
+    }
+    
+    function triggerFinalMessage() {
+        const messageDiv = document.querySelector('.message');
+        messageDiv.textContent = 'Yay! You got it right! 🎉 Screen shot this Right Now And Send this to your partner! 💌';
+        messageDiv.style.visibility = 'visible';
+        confetti();
+    }
+    
+    function confetti() {
+        // Implementation of the confetti effect goes here
+    }
+    </script>
+    
+</body>
+</html>
